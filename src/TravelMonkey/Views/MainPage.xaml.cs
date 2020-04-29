@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using TravelMonkey.ViewModels;
 using Xamarin.Forms;
 
@@ -46,6 +47,11 @@ namespace TravelMonkey.Views
 
             await Navigation.PushModalAsync(new TranslationResultPage(TranslateTextEntry.Text));
             TranslateTextEntry.Text = "";
+        }
+
+        private async void Button_Navigate_to_ChatPage_Clicked(object sender, EventArgs e)
+        {
+            await Application.Current.MainPage.Navigation.PushModalAsync(new ChatPage());
         }
     }
 }
