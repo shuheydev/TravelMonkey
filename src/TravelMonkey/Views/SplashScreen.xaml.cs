@@ -40,6 +40,7 @@ namespace TravelMonkey.Views
         private async void InitializeData()
         {
             MockDataStore.Destinations = await _bingSearchService.GetDestinations();
+            MockDataStore.Messages = await SampleData.InitSampleMessages();
 
             await MainThread.InvokeOnMainThreadAsync(AnimateTransition);
 
