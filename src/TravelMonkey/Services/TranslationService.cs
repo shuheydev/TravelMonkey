@@ -53,5 +53,17 @@ namespace TravelMonkey.Services
                 }
             }
         }
+
+        public async Task<string> TranslateTo(string inputText,string targetLangCode)
+        {
+            var translateResult = await TranslateText(inputText);
+            string translatedText = string.Empty;
+            if(translateResult.Succeeded)
+            {
+                translatedText = translateResult.Translations.FirstOrDefault(t => t.Key == targetLangCode).Value;
+            }
+
+            return translatedText;
+        }
     }
 }
