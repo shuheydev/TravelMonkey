@@ -18,12 +18,12 @@
             <Grid>
                 <Frame
                     Margin="50,5,10,5"
-                    BackgroundColor="LightGreen"
+                    BackgroundColor="Accent"
                     CornerRadius="10"
                     HorizontalOptions="End">
                     <StackLayout>
-                        <Label BackgroundColor="LightBlue" Text="{Binding SourceLangText}" />
-                        <Label BackgroundColor="LightPink" Text="{Binding TargetLangText}" />
+                        <Label Text="{Binding SourceLangText}" TextColor="White" />
+                        <Label Text="{Binding TargetLangText}" TextColor="LightPink" />
                     </StackLayout>
                 </Frame>
             </Grid>
@@ -32,12 +32,11 @@
             <Grid>
                 <Frame
                     Margin="10,5,50,5"
-                    BackgroundColor="LightSalmon"
                     CornerRadius="10"
                     HorizontalOptions="Start">
                     <StackLayout>
-                        <Label BackgroundColor="LightPink" Text="{Binding TargetLangText}" />
-                        <Label BackgroundColor="LightBlue" Text="{Binding SourceLangText}" />
+                        <Label Text="{Binding SourceLangText}" />
+                        <Label Text="{Binding TargetLangText}" TextColor="LightBlue" />
                     </StackLayout>
                 </Frame>
             </Grid>
@@ -48,12 +47,9 @@
             OthersMessageTemplate="{StaticResource OthersMessageTemplate}" />
     </ContentPage.Resources>
 
-    <Grid
-        AbsoluteLayout.LayoutBounds="0,0,1,1"
-        AbsoluteLayout.LayoutFlags="SizeProportional"
-        BackgroundColor="LightPink">
+    <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="80" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="70" />
         </Grid.RowDefinitions>
@@ -64,28 +60,35 @@
 
         <d:Label Text="{Binding BindingTest}" />
 
+        <Frame
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            BackgroundColor="Accent" />
         <Picker
-            Title="Source Language"
+            Title="Your Language"
             Grid.Row="0"
             Grid.Column="0"
-            BackgroundColor="LightGreen"
+            HorizontalOptions="Center"
             ItemDisplayBinding="{Binding Name}"
             ItemsSource="{Binding SourceLanguages}"
-            SelectedItem="{Binding SelectedSourceLanguage}" />
+            SelectedItem="{Binding SelectedSourceLanguage}"
+            TextColor="White"
+            TitleColor="White" />
         <Picker
             Title="Target Language"
             Grid.Row="0"
             Grid.Column="1"
-            BackgroundColor="LightBlue"
+            HorizontalOptions="Center"
             ItemDisplayBinding="{Binding Name}"
             ItemsSource="{Binding TargetLanguages}"
-            SelectedItem="{Binding SelectedTargetLanguage, Mode=TwoWay}" />
+            SelectedItem="{Binding SelectedTargetLanguage, Mode=TwoWay}"
+            TextColor="White"
+            TitleColor="White" />
 
         <CollectionView
             x:Name="CollectionView_Messages"
             Grid.Row="1"
             Grid.ColumnSpan="2"
-            BackgroundColor="LightYellow"
             ItemTemplate="{StaticResource MessageTemplateSelector}"
             ItemsSource="{Binding Messages}">
 
@@ -93,34 +96,31 @@
                 <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
             </CollectionView.ItemsLayout>
         </CollectionView>
-        <Grid
+
+        <Frame
             Grid.Row="2"
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            Margin="10"
-            d:BackgroundColor="LightSalmon">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="50" />
-            </Grid.ColumnDefinitions>
+            Padding="0">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="50" />
+                </Grid.ColumnDefinitions>
 
-            <Editor
-                Grid.Column="0"
-                BackgroundColor="LightBlue"
-                Placeholder="enter message"
-                Text="{Binding InputMessage}" />
-            <Button
-                Grid.Column="1"
-                Padding="0"
-                d:BackgroundColor="LightGreen"
-                BackgroundColor="White"
-                Command="{Binding SendMessageCommand}"
-                CornerRadius="30"
-                FontFamily="FontAwesomeSolid"
-                FontSize="Large"
-                Text="paper-plane"
-                TextColor="Accent" />
-        </Grid>
+                <Editor Grid.Column="0" Text="{Binding InputMessage}" />
+                <Button
+                    Grid.Column="1"
+                    Padding="0"
+                    BackgroundColor="White"
+                    Command="{Binding SendMessageCommand}"
+                    CornerRadius="30"
+                    FontFamily="FontAwesomeSolid"
+                    FontSize="Large"
+                    Text="paper-plane"
+                    TextColor="Accent" />
+            </Grid>
+        </Frame>
     </Grid>
 
 </ContentPage>
