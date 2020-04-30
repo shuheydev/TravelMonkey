@@ -5,16 +5,122 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:TravelMonkey.Models"
+    xmlns:templateselector="clr-namespace:TravelMonkey.TemplateSelector"
     xmlns:viewmodels="clr-namespace:TravelMonkey.ViewModels"
     mc:Ignorable="d">
     <d:ContentPage.BindingContext>
         <viewmodels:ChatPageViewModel />
     </d:ContentPage.BindingContext>
 
-    <Grid>
-        <Label
-            HorizontalOptions="CenterAndExpand"
-            Text="{Binding BindingTest}"
-            VerticalOptions="CenterAndExpand" />
+    <ContentPage.Resources>
+        <DataTemplate x:Key="MyMessageTemplate">
+            <Grid>
+                <Frame
+                    Margin="50,5,10,5"
+                    BackgroundColor="LightGreen"
+                    CornerRadius="10"
+                    HorizontalOptions="End">
+                    <StackLayout>
+                        <Label BackgroundColor="LightBlue" Text="{Binding SourceLangText}" />
+                        <Label BackgroundColor="LightPink" Text="{Binding TargetLangText}" />
+                    </StackLayout>
+                </Frame>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="OthersMessageTemplate">
+            <Grid>
+                <Frame
+                    Margin="10,5,50,5"
+                    BackgroundColor="LightSalmon"
+                    CornerRadius="10"
+                    HorizontalOptions="Start">
+                    <StackLayout>
+                        <Label BackgroundColor="LightPink" Text="{Binding TargetLangText}" />
+                        <Label BackgroundColor="LightBlue" Text="{Binding SourceLangText}" />
+                    </StackLayout>
+                </Frame>
+            </Grid>
+        </DataTemplate>
+        <templateselector:MessageTemplateSelector
+            x:Key="MessageTemplateSelector"
+            MyMessageTemplate="{StaticResource MyMessageTemplate}"
+            OthersMessageTemplate="{StaticResource OthersMessageTemplate}" />
+    </ContentPage.Resources>
+
+    <Grid
+        AbsoluteLayout.LayoutBounds="0,0,1,1"
+        AbsoluteLayout.LayoutFlags="SizeProportional"
+        BackgroundColor="LightPink">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*" />
+            <ColumnDefinition Width="50*" />
+        </Grid.ColumnDefinitions>
+
+        <d:Label Text="{Binding BindingTest}" />
+
+        <Picker
+            Title="Source Language"
+            Grid.Row="0"
+            Grid.Column="0"
+            BackgroundColor="LightGreen"
+            ItemDisplayBinding="{Binding Name}"
+            ItemsSource="{Binding SourceLanguages}"
+            SelectedItem="{Binding SelectedSourceLanguage}" />
+        <Picker
+            Title="Target Language"
+            Grid.Row="0"
+            Grid.Column="1"
+            BackgroundColor="LightBlue"
+            ItemDisplayBinding="{Binding Name}"
+            ItemsSource="{Binding TargetLanguages}"
+            SelectedItem="{Binding SelectedTargetLanguage, Mode=TwoWay}" />
+
+        <CollectionView
+            x:Name="CollectionView_Messages"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            BackgroundColor="LightYellow"
+            ItemTemplate="{StaticResource MessageTemplateSelector}"
+            ItemsSource="{Binding Messages}">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+        </CollectionView>
+        <Grid
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Margin="10"
+            d:BackgroundColor="LightSalmon">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="50" />
+            </Grid.ColumnDefinitions>
+
+            <Editor
+                Grid.Column="0"
+                BackgroundColor="LightBlue"
+                Placeholder="enter message"
+                Text="{Binding InputMessage}" />
+            <Button
+                Grid.Column="1"
+                Padding="0"
+                d:BackgroundColor="LightGreen"
+                BackgroundColor="White"
+                Command="{Binding SendMessageCommand}"
+                CornerRadius="30"
+                FontFamily="FontAwesomeSolid"
+                FontSize="Large"
+                Text="paper-plane"
+                TextColor="Accent" />
+        </Grid>
     </Grid>
+
 </ContentPage>
