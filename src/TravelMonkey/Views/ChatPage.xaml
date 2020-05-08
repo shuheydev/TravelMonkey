@@ -72,8 +72,7 @@
             ItemDisplayBinding="{Binding Name}"
             ItemsSource="{Binding SourceLanguages}"
             SelectedItem="{Binding SelectedSourceLanguage}"
-            TextColor="White"
-            TitleColor="White" />
+            TextColor="White" />
         <Picker
             Title="Target Language"
             Grid.Row="0"
@@ -82,8 +81,7 @@
             ItemDisplayBinding="{Binding Name}"
             ItemsSource="{Binding TargetLanguages}"
             SelectedItem="{Binding SelectedTargetLanguage, Mode=TwoWay}"
-            TextColor="White"
-            TitleColor="White" />
+            TextColor="White" />
 
         <CollectionView
             x:Name="CollectionView_Messages"
